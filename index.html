@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khảo Sát</title>
+    <title>Khảo Sát tình yêu</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
     <style>
         body {
             margin: 0;
@@ -80,6 +81,14 @@
             border: none;
             border-radius: 5px;
             font-size: 14px;
+        }
+
+        .sticker-retry {
+            display: none;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            margin: 30px auto 0;
         }
 
         @media (max-width: 768px) {
@@ -168,6 +177,7 @@
     <img class="sticker" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExODJzMHlpNTF4ZTZocm4xcTYycG56MHpsNGFvNXhsMWNpcThyZzVleiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kGPIWgHQdmuuIAsm0f/giphy.gif" alt="celebration">
     <p class="sticker-text">💕 Yêu em nhiềuuuuuuu 💕</p>
     <button class="btn-retry" onclick="retryAction()">← Chọn Lại</button>
+    <img class="sticker-retry" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHNqM3RmcTM3eThoMzZvNHFnMjlqYm5lY2prMGJtMXlpYTI3ZWQ1MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cngmCL2AWMSU0lyYdb/giphy.gif" alt="troll">
 
     <script>
         let handleDecline = false;
@@ -236,6 +246,7 @@
             document.querySelector('.btn-retry').style.display = 'none';
             document.querySelector('.sticker').style.display = 'none';
             document.querySelector('.sticker-text').style.display = 'none';
+            document.querySelector('.sticker-retry').style.display = 'block';
         }
     </script>
 </body>

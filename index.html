@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khảo Sát</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 50px;
+        }
+
+        h5 {
+            text-align: center;
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            position: fixed;
+        }
+
+        .btn-accept {
+            background-color: green;
+            color: white;
+            left: calc(50% - 110px);
+            top: 120px;
+        }
+
+        .btn-decline {
+            background-color: red;
+            color: white;
+            left: calc(50% + 50px);
+            top: 120px;
+        }
+
+        .sticker {
+            display: none;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            margin-top: -30px;
+        }
+
+        .sticker-text {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .btn-retry {
+            display: none;
+            background-color: #2196F3;
+            color: white;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            h5 {
+                font-size: 16px;
+                padding: 15px;
+                margin: 0 0 15px 0;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 14px;
+                margin: 0 5px;
+            }
+
+            .btn-accept {
+                left: calc(50% - 70px);
+                top: 100px;
+            }
+
+            .btn-decline {
+                left: calc(50% + 30px);
+                top: 100px;
+            }
+
+            .sticker {
+                width: 150px;
+                height: 150px;
+            }
+
+            .sticker-text {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 30px;
+            }
+
+            h5 {
+                font-size: 14px;
+                padding: 10px;
+                margin: 0 0 10px 0;
+            }
+
+            button {
+                padding: 6px 12px;
+                font-size: 12px;
+                margin: 0 3px;
+            }
+
+            .btn-accept {
+                left: calc(50% - 50px);
+                top: 80px;
+            }
+
+            .btn-decline {
+                left: calc(50% + 20px);
+                top: 80px;
+            }
+
+            .sticker {
+                width: 120px;
+                height: 120px;
+                margin-top: 0px;
+            }
+
+            .sticker-text {
+                font-size: 12px;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h5>Em có thể cho anh thêm một cơ hội nữa không?</h5>
+
+        <button class="btn-accept" onclick="acceptSurvey()">Đồng Ý</button>
+        <button class="btn-decline" onmouseover="dodgeButton(this)" onclick="declineSurvey()">Không</button>
+    </div>
+
+
+    <img class="sticker" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExODJzMHlpNTF4ZTZocm4xcTYycG56MHpsNGFvNXhsMWNpcThyZzVleiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kGPIWgHQdmuuIAsm0f/giphy.gif" alt="celebration">
+    <p class="sticker-text">💕 Yêu em nhiềuuuuuuu 💕</p>
+    <button class="btn-retry" onclick="retryAction()">← Chọn Lại</button>
+
+    <script>
+        let handleDecline = false;
+        let shrinkLevel = 1;
+
+        function completeAction() {
+            document.querySelector('h5').textContent = 'Đấy, anh biết em sẽ đồng ý mà!❤️';
+            document.querySelector('.btn-accept').style.display = 'none';
+            document.querySelector('.btn-decline').style.display = 'none';
+            document.querySelector('.sticker').style.display = 'block';
+            document.querySelector('.sticker-text').style.display = 'block';
+            document.querySelector('.btn-retry').style.display = 'block';
+        }
+
+        function acceptSurvey() {
+            completeAction();
+        }
+
+        function declineSurvey() {
+            if (handleDecline) return;
+            handleDecline = true;
+
+            const declineBtn = document.querySelector('.btn-decline');
+            const acceptBtn = document.querySelector('.btn-accept');
+
+            // Swap classes and text
+            const tempText = acceptBtn.textContent;
+            acceptBtn.textContent = declineBtn.textContent;
+            declineBtn.textContent = tempText;
+
+            const tempClass = declineBtn.className;
+            declineBtn.className = acceptBtn.className;
+            acceptBtn.className = tempClass;
+
+            // Reset position and size
+            declineBtn.style.left = 'calc(50% + 50px)';
+            declineBtn.style.top = '120px';
+            acceptBtn.style.left = 'calc(50% - 110px)';
+            acceptBtn.style.top = '120px';
+            declineBtn.style.transform = 'scale(1)';
+            shrinkLevel = 1;
+
+            setTimeout(() => {
+                completeAction();
+                handleDecline = false;
+            }, 2000);
+        }
+
+        function dodgeButton(btn) {
+            if (handleDecline) return;
+
+            // Shrink button slightly each time
+            shrinkLevel -= 0.05;
+
+            // Move to random position
+            const randomX = Math.random() * (window.innerWidth - 100);
+            const randomY = Math.random() * (window.innerHeight - 100);
+
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.transform = `scale(${shrinkLevel})`;
+        }
+
+        function retryAction() {
+            document.querySelector('h5').textContent = 'Đâu ra, làm gì có cơ hội chọn lại đâu bé 😘';
+            document.querySelector('.btn-retry').style.display = 'none';
+            document.querySelector('.sticker').style.display = 'none';
+            document.querySelector('.sticker-text').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
